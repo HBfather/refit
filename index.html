@@ -29,13 +29,39 @@ html[data-large='true'] .motivation p{font-size:19px}html[data-large='true'] .qu
 
 
 .rest-mini{position:fixed;right:16px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:10;background:#183e32;color:white;box-shadow:0 4px 18px #0002}body:has(#workout.active) .rest-mini{display:none}#saveBar{margin:4px 0 12px}#restSeconds{max-width:110px}#restPanel .row{justify-content:space-between}#restPanel .clock{font-variant-numeric:tabular-nums}.area-step{font-size:14px;font-weight:750;color:#183e32;border-bottom:1px solid #dce4d8;padding-bottom:10px;margin:0 0 14px}#builderExercises .row{margin:8px 0}
-</style><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png"><meta name="mobile-web-app-capable" content="yes"></head><body><a class="skip-link" href="#appMain">본문으로 이동</a><main id="appMain" tabindex="-1"><header><div><h1>RE:FIT <small>v5.7</small></h1><small>1RM 기반 운동 프로그램</small></div><button class="compact" onclick="go('home')">⌂ 대시보드</button></header><div class="display-control"><span class="display-label">화면 설정</span><button id="fontToggle" onclick="toggleLargeText()" aria-pressed="false">가 큰 글씨 켜기</button></div>
+.rest-slot #restPanel{margin:6px 0 12px;padding:10px;background:#e8f0e1;border:1px solid #d4e1ce}.rest-slot #restClock{font-size:34px;line-height:1.3}.rest-controls{display:flex;justify-content:center;align-items:center;gap:4px;flex-wrap:nowrap}.rest-controls button{flex:0 0 auto;min-height:44px;padding:6px 7px;font-size:12px;white-space:nowrap}.rest-inline{display:flex;align-items:center;gap:3px;margin:0;font-size:12px;white-space:nowrap}.rest-inline #restSeconds{width:4em;min-height:44px;padding:5px;font-size:14px;text-align:center}.rest-alerts{margin-top:6px;padding:4px 8px;min-height:36px;font-size:12px}@media(max-width:360px){.rest-controls{gap:3px}.rest-controls button{padding-inline:5px}.rest-inline #restSeconds{width:3.6em}}
+
+.routine-input{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px}.routine-choices{margin-top:16px}.routine-item{padding:16px 0;border-top:1px solid var(--line)}.routine-item h3{margin:4px 0 0}.routine-order{display:flex;gap:4px}.routine-order button{min-width:42px;padding-inline:8px}.routine-item .grid{margin-top:10px}#libraryExercises .row{padding:10px 0;border-top:1px solid var(--line)}#routineEditor[hidden]{display:none}
+</style><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png"><meta name="mobile-web-app-capable" content="yes"></head><body><a class="skip-link" href="#appMain">본문으로 이동</a><main id="appMain" tabindex="-1"><header><div><h1>RE:FIT <small>v5.8.1</small></h1><small>1RM 기반 운동 프로그램</small></div><button class="compact" onclick="go('home')">⌂ 대시보드</button></header><div class="display-control"><span class="display-label">화면 설정</span><button id="fontToggle" onclick="toggleLargeText()" aria-pressed="false">가 큰 글씨 켜기</button></div>
 <div id="saveBar"><small id="saveStatus" role="status">운동 변경 사항은 자동 저장됩니다.</small> <button id="retrySave" class="compact" onclick="save()" hidden>다시 저장</button></div><section id="home" class="page"><div class="motivation"><p id="motivationLine"></p><button class="quote-next" onclick="nextQuote()" aria-label="다른 동기부여 문구 보기" title="다른 문구">↻</button></div><div class="card home-goal"><div class="goal-heading"><div class="goal-identity"><span>운동 목적:</span><strong id="homeGoal"></strong></div><button class="goal-edit" onclick="go('goal')" aria-label="운동 목적 변경"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>변경</span></button></div><p id="homeGuide"></p></div><div id="homeTraining"></div><div id="homeWeek"></div><div class="section-toolbar"><h3>운동 프로그램</h3><button onclick="go('builder')">+ 만들기</button></div><div id="homePrograms"></div><div class="section-toolbar"><h3>최근 운동</h3><button onclick="go('history')">전체 기록</button></div><div id="homeRecent"></div><div class="home-quick"><button onclick="go('measure')">1RM 측정</button><button onclick="go('analytics')">성장 분석</button></div><button class="compact" onclick="go('overview')">1RM 전체 현황</button><details class="utility"><summary>백업 · 복원 · 앱 설치</summary><div class="grid"><button onclick="backup()">JSON 백업</button><button onclick="document.getElementById('file').click()">백업 복원</button></div><p class="note">기록은 이 브라우저에 저장됩니다. 기기 변경이나 브라우저 데이터 삭제에 대비해 정기적으로 백업하세요.</p><div class="card"><strong>앱 설치 · 오프라인</strong><p id="pwaStatus" role="status">오프라인 준비 확인 중…</p><button id="installApp" hidden>RE:FIT 설치</button><p class="note">설치 버튼이 없으면 Chrome 메뉴 → 홈 화면에 추가 → 설치를 선택하세요.</p></div></details></section>
 <section id="goal" class="page"><small>STEP 1</small><h2>운동 목적 설정</h2><p>선택한 목적은 직접 변경할 때까지 유지됩니다. 기존 운동 기록은 목적을 변경해도 보존됩니다.</p><div id="goalList"></div><button class="primary" style="width:100%" onclick="saveGoal()">목적 저장하고 계속</button></section>
 <section id="measure" class="page"><small>STEP 2</small><h2>부위별 1RM 측정</h2><div class="wrap" id="areas"></div><div class="card"><label>운동 종목</label><select id="exercise" onchange="renderMeasure()"></select><div class="grid"><div><label>중량 (kg)</label><input type="number" id="weight" value="60" min="0.5" step="0.5" oninput="calc()"></div><div><label>수행 반복 수</label><input type="number" id="reps" value="8" min="1" max="30" oninput="calc()"></div></div><label>남은 반복 여유 (RIR)</label><select id="rir" onchange="calc()"><option value="0">0회</option><option value="1">1회</option><option value="2">2회</option><option value="3">3회</option></select><div class="row" style="margin-top:14px"><div><small>추정 1RM</small><div class="stat" id="calcResult">—</div></div><button class="primary" onclick="saveRM()">1RM 저장</button></div><p class="note">Epley 공식의 간이 RIR 보정 추정치. 최대에 가까운 1–10회 세트가 일반적으로 더 적합합니다.</p></div><div class="card"><label>운동 종목 직접 추가</label><div class="row"><input id="custom" aria-label="추가할 운동 종목 이름" placeholder="운동 이름"><button onclick="addExercise()">추가</button></div></div><button class="primary" style="width:100%" onclick="go('overview')">전체 1RM 현황 보기</button></section>
 <section id="overview" class="page"><small>STEP 3</small><h2>1RM 및 권장 중량</h2><p id="overviewIntro"></p><div id="overviewList"></div><button class="primary" style="width:100%" onclick="go('builder')">운동 프로그램 구성</button></section>
-<section id="builder" class="page"><small>STEP 4</small><h2>부위별 운동 프로그램 구성</h2><p>1RM을 측정하지 않은 운동도 추가할 수 있습니다. 중량과 반복·세트를 설정하면 진행 중 운동의 미완료 세트에도 적용됩니다.</p><div class="card"><label>운동 부위</label><div class="wrap" id="builderAreas"></div><label>저장된 운동 종목</label><div id="builderExercises"></div><label for="builderCustom">새 운동 이름</label><div class="grid"><input id="builderCustom" maxlength="100" placeholder="예: 케이블 레터럴 레이즈"><button onclick="addCustomToPlan()">종목 추가</button></div></div><div class="card"><h3 id="builderTitle">선택한 부위의 프로그램</h3><div id="builderPlan"></div><button class="primary" style="width:100%" onclick="saveProgram()">프로그램 저장</button></div><div class="card"><h3>여러 부위 묶기</h3><p class="note">저장한 부위를 운동 순서대로 추가하세요.</p><label for="combinedOptions">프로그램 부위</label><select id="combinedOptions" onchange="selectSessionArea(this.value)"></select><div id="combinedOrder"></div><button class="primary" onclick="startCombined()">통합 운동 시작</button></div></section>
-<section id="workout" class="page"><small>WORKOUT</small><div class="row"><h2 id="workoutTitle">오늘의 운동</h2><span class="pill" id="workoutGoal"></span></div><p id="workoutDate"></p><div id="workoutProgress" class="workout-banner"></div><div id="restPanel" class="card timer"><div class="row"><strong>휴식 타이머</strong><span id="restStatus"></span></div><div class="clock" id="restClock">01:30</div><label for="restSeconds">다음 휴식 (초)</label><input type="number" id="restSeconds" min="0" max="1800" step="1" inputmode="numeric" onchange="setRestDuration(this)"><p class="note">세트 완료 시 자동 시작 · 0초는 자동 휴식 끄기</p><div class="wrap"><button id="restStart" onclick="startTimer(0)">시작</button><button id="restPause" onclick="pauseTimer()">일시정지</button><button id="restResume" onclick="resumeTimer()">재개</button><button onclick="resetTimer()">초기화</button><button onclick="enableRestAlerts()">시스템 알림 켜기</button></div></div><div id="workoutItems"></div><div class="card finish-panel"><div class="row"><strong>운동 기록 저장</strong><span id="progress"></span></div><button class="primary" style="width:100%;margin-top:12px" id="finishWorkoutBtn" onclick="finishWorkout()">오늘 운동 완료 · 기록 보존</button></div></section>
+<section id="builder" class="page">
+  <h2>내 운동 프로그램</h2>
+  <div class="card"><h3>프로그램 만들기</h3>
+    <form onsubmit="event.preventDefault();createRoutine(document.getElementById('newRoutineName'))">
+      <label for="newRoutineName">이름</label><div class="routine-input"><input id="newRoutineName" maxlength="60" placeholder="예: 가슴+이두"><button class="primary">만들기</button></div>
+    </form>
+    <div id="routineChoices" class="wrap routine-choices" aria-label="저장한 프로그램"></div>
+  </div>
+  <div class="card" id="exerciseLibrary"><h3>부위별 운동 목록</h3>
+    <label for="libraryArea">부위</label><select id="libraryArea" onchange="catalogArea=this.value;renderBuilder()"></select>
+    <label for="libraryName">내 운동 종목</label>
+    <form class="routine-input" onsubmit="event.preventDefault();rememberExercise(document.getElementById('libraryName'))">
+      <input id="libraryName" maxlength="100" placeholder="예: 인클라인 덤벨 컬"><button>목록에 저장</button>
+    </form>
+    <p class="note">저장한 운동은 같은 부위에서 다시 꺼내 쓸 수 있습니다.</p><div id="libraryExercises"></div>
+  </div>
+  <div id="routineEditor" class="card" hidden>
+    <div class="row"><h3>운동 순서</h3><button id="startRoutine" class="primary" onclick="newRoutineSession(editingRoutine())">이 프로그램 시작</button></div>
+    <label for="routineName">프로그램 이름</label><input id="routineName" maxlength="60" onchange="renameRoutine(this)">
+    <p class="note">위에서 아래 순서로 진행합니다. ↑ ↓ 버튼으로 순서를 바꿀 수 있습니다. <a href="#exerciseLibrary">운동 목록으로 ↑</a></p>
+    <div id="routinePlan"></div>
+    <button class="compact" onclick="deleteRoutine()">프로그램 삭제</button>
+  </div>
+</section>
+<section id="workout" class="page"><small>WORKOUT</small><div class="row"><h2 id="workoutTitle">오늘의 운동</h2><span class="pill" id="workoutGoal"></span></div><p id="workoutDate"></p><div id="workoutProgress" class="workout-banner"></div><div id="restDock"><div id="restPanel" class="card timer"><div class="row"><strong>휴식 타이머</strong><span id="restStatus"></span></div><div class="clock" id="restClock">01:00</div><div class="rest-controls"><button id="restStart" onclick="restartVisibleRest()">시작</button><button id="restPause" onclick="pauseTimer()">일시정지</button><button id="restResume" onclick="resumeTimer()">재개</button><button onclick="resetTimer()">초기화</button><label class="rest-inline" title="다음 휴식 시간. 0초는 자동 휴식 끄기"><input aria-label="다음 휴식 시간 (초)" id="restSeconds" type="number" min="0" max="1800" step="1" inputmode="numeric" onchange="setRestDuration(this)"><span>초</span></label></div><button class="rest-alerts compact" onclick="enableRestAlerts()">시스템 알림 켜기</button></div></div><div id="workoutItems"></div><div class="card finish-panel"><div class="row"><strong>운동 기록 저장</strong><span id="progress"></span></div><button class="primary" style="width:100%;margin-top:12px" id="finishWorkoutBtn" onclick="finishWorkout()">오늘 운동 완료 · 기록 보존</button></div></section>
 <section id="history" class="page"><h2>운동 기록</h2><div id="historySummary" class="history-summary"></div><div id="historyList"></div></section>
 <section id="analytics" class="page">
 <div class="row"><h2>성장 분석</h2><button id="demoAnalysis" class="compact" onclick="analyticsDemo=!analyticsDemo;detailDay='';renderAnalytics()">예시로 보기</button></div>
@@ -251,7 +277,7 @@ renderHome=function(){const g=goal();$('homeGoal').textContent=g.name;$('homeGui
  $('homePrograms').innerHTML=programs.map(([a,p])=>'<div class="program-line"><div class="area-symbol">'+clean(a.slice(0,2))+'</div><div><strong>'+clean(a)+'</strong><small>'+p.length+'종목 · '+p.reduce((n,x)=>n+Number(x.sets),0)+'세트</small></div><div class="program-actions"><button onclick="builderArea=\''+a+'\';go(\'builder\')" aria-label="'+clean(a)+' 프로그램 편집">편집</button><button class="primary" onclick="startArea(\''+a+'\')">시작</button></div></div>').join('')||'<div class="empty">아직 프로그램이 없습니다. + 만들기를 눌러보세요.</div>';
  $('homeRecent').innerHTML=sessions.slice(0,3).map(s=>'<div class="recent-line"><div><strong>'+clean(sessionLabel(s))+' · '+s.date.slice(5)+'</strong><small>'+sessionTotals(s).sets+'세트 · '+numberText(sessionTotals(s).volume)+' kg·회</small></div><button onclick="openSession(\''+s.id+'\')">'+(s.finished?'기록 보기':'이어하기')+'</button></div>').join('')||'<div class="empty">운동을 마치면 여기에 기록됩니다.</div>';enhanceReadability()};
 renderWorkout=function(){const s=current();if(!s)return go('home');const all=s.items.flatMap(x=>x.sets),done=all.filter(z=>z.done).length,total=all.length;$('workoutTitle').textContent=s.area+' 운동';$('workoutGoal').textContent=goals[s.goal]?.name||'운동';$('workoutDate').textContent=s.date+(s.finished?' · 완료 기록':' · 세트별로 기록하세요');$('workoutProgress').innerHTML='<div class="row"><strong>'+(s.finished?'운동 완료':'오늘의 진행')+'</strong><span>'+done+' / '+total+'세트</span></div><div class="progress-track"><span style="width:'+(total?done/total*100:0)+'%"></span></div>';
- $('workoutItems').innerHTML=s.items.map((x,i)=>{const g=goals[s.goal]||goal(),rec=x.rm?round(x.rm*g.pct[0]/100)+'–'+round(x.rm*g.pct[1]/100)+' kg':'1RM 미등록';return '<article class="exercise-sheet">'+(areasOf(s).length>1&&(i===0||x.area!==s.items[i-1].area)?'<p class="area-step">'+clean(x.area||s.area)+'</p>':'')+'<div class="exercise-header"><span class="exercise-number">'+String(i+1).padStart(2,'0')+'</span><div><h3>'+clean(x.name)+'</h3><small>1RM '+x.rm+' kg · 계획 '+x.reps+'회 × '+x.sets.length+'세트</small></div></div><div class="exercise-prescription"><span>권장 '+rec+'</span><span>'+g.reps+'</span><span>'+g.sets+'</span></div><div class="sheet-columns"><span>세트</span><span>중량 kg</span><span>반복 회</span><span>완료</span></div>'+x.sets.map((z,j)=>'<div class="set"><small>'+String(j+1).padStart(2,'0')+'</small><input aria-label="'+clean(x.name)+' '+(j+1)+'세트 중량" type="number" min="0" max="1000" step="0.5" value="'+z.weight+'" '+(s.finished?'disabled':'')+' oninput="saveWorkoutInput('+i+','+j+',\'weight\',this,false)" onchange="saveWorkoutInput('+i+','+j+',\'weight\',this,true)"><input aria-label="'+clean(x.name)+' '+(j+1)+'세트 횟수" type="number" min="0" max="100" step="1" value="'+z.reps+'" '+(s.finished?'disabled':'')+' oninput="saveWorkoutInput('+i+','+j+',\'reps\',this,false)" onchange="saveWorkoutInput('+i+','+j+',\'reps\',this,true)"><button class="'+(z.done?'active':'')+'" aria-label="'+(j+1)+'세트 '+(z.done?'완료 취소':'완료')+'" '+(s.finished?'disabled':'')+' onclick="toggleSet('+i+','+j+')">'+(z.done?'✓':'○')+'</button></div><details class="set-meta"><summary>'+(z.type==='warmup'?'준비 세트':'본 세트')+(z.rir!=null?' · RIR '+z.rir:'')+' · 설정</summary><div class="grid"><div><label>세트 구분</label><select '+(s.finished?'disabled':'')+' onchange="updateSetMeta('+i+','+j+',\'type\',this.value)"><option value="work" '+(z.type!=='warmup'?'selected':'')+'>본 세트</option><option value="warmup" '+(z.type==='warmup'?'selected':'')+'>준비 세트</option></select></div><div><label>RIR · 선택</label><input type="number" min="0" max="10" step="1" value="'+(z.rir??'')+'" '+(s.finished?'disabled':'')+' onchange="updateSetMeta('+i+','+j+',\'rir\',this.value)"></div></div></details>').join('')+'<button class="add-set" '+(s.finished?'disabled':'')+' onclick="addSet('+i+')">+ 세트 추가</button></article>'}).join('');$('progress').textContent=done+'/'+total+'세트';$('finishWorkoutBtn').disabled=s.finished;enhanceReadability()};
+ $('workoutItems').innerHTML=s.items.map((x,i)=>{const g=goals[s.goal]||goal(),rec=x.rm?round(x.rm*g.pct[0]/100)+'–'+round(x.rm*g.pct[1]/100)+' kg':'1RM 미등록';return '<article class="exercise-sheet">'+(areasOf(s).length>1&&(i===0||x.area!==s.items[i-1].area)?'<p class="area-step">'+clean(x.area||s.area)+'</p>':'')+'<div class="exercise-header"><span class="exercise-number">'+String(i+1).padStart(2,'0')+'</span><div><h3>'+clean(x.name)+'</h3><small>1RM '+x.rm+' kg · 계획 '+x.reps+'회 × '+x.sets.length+'세트</small></div></div><div class="exercise-prescription"><span>권장 '+rec+'</span><span>'+g.reps+'</span><span>'+g.sets+'</span></div><div class="sheet-columns"><span>세트</span><span>중량 kg</span><span>반복 회</span><span>완료</span></div>'+x.sets.map((z,j)=>'<div class="set"><small>'+String(j+1).padStart(2,'0')+'</small><input aria-label="'+clean(x.name)+' '+(j+1)+'세트 중량" type="number" min="0" max="1000" step="0.5" value="'+z.weight+'" '+(s.finished?'disabled':'')+' oninput="saveWorkoutInput('+i+','+j+',\'weight\',this,false)" onchange="saveWorkoutInput('+i+','+j+',\'weight\',this,true)"><input aria-label="'+clean(x.name)+' '+(j+1)+'세트 횟수" type="number" min="0" max="100" step="1" value="'+z.reps+'" '+(s.finished?'disabled':'')+' oninput="saveWorkoutInput('+i+','+j+',\'reps\',this,false)" onchange="saveWorkoutInput('+i+','+j+',\'reps\',this,true)"><button class="'+(z.done?'active':'')+'" aria-label="'+(j+1)+'세트 '+(z.done?'완료 취소':'완료')+'" '+(s.finished?'disabled':'')+' onclick="toggleSet('+i+','+j+')">'+(z.done?'✓':'○')+'</button></div><div class="rest-slot" id="rest-slot-'+i+'-'+j+'"></div><details class="set-meta"><summary>'+(z.type==='warmup'?'준비 세트':'본 세트')+(z.rir!=null?' · RIR '+z.rir:'')+' · 설정</summary><div class="grid"><div><label>세트 구분</label><select '+(s.finished?'disabled':'')+' onchange="updateSetMeta('+i+','+j+',\'type\',this.value)"><option value="work" '+(z.type!=='warmup'?'selected':'')+'>본 세트</option><option value="warmup" '+(z.type==='warmup'?'selected':'')+'>준비 세트</option></select></div><div><label>RIR · 선택</label><input type="number" min="0" max="10" step="1" value="'+(z.rir??'')+'" '+(s.finished?'disabled':'')+' onchange="updateSetMeta('+i+','+j+',\'rir\',this.value)"></div></div></details>').join('')+'<button class="add-set" '+(s.finished?'disabled':'')+' onclick="addSet('+i+')">+ 세트 추가</button></article>'}).join('');$('progress').textContent=done+'/'+total+'세트';$('finishWorkoutBtn').disabled=s.finished;enhanceReadability()};
 renderHistory=function(){const sessions=allSessions();$('historySummary').innerHTML='<strong>'+sessions.filter(s=>s.finished).length+'</strong><span>번의 운동을 기록했어요</span>';$('historyList').innerHTML=sessions.map(s=>{const st=sessionTotals(s);return '<article class="history-entry"><div class="history-top"><div><small>'+s.date+'</small><h3>'+clean(sessionLabel(s))+' 운동</h3></div><span class="pill">'+(s.finished?'완료':'진행 중')+'</span></div><div class="history-metrics"><div><strong>'+st.sets+'</strong><small>본 세트 완료</small></div><div><strong>'+numberText(st.volume)+'</strong><small>운동량 kg·회</small></div><div><strong>'+st.reps+'</strong><small>총 반복</small></div></div><details><summary>'+s.items.length+'종목 · 세트 기록 펼치기</summary>'+s.items.map(x=>'<p class="note"><strong>'+clean(x.name)+'</strong><br>'+x.sets.map(z=>z.weight+'kg × '+z.reps+'회 '+(z.done?'✓':'')+(z.type==='warmup'?' (준비)':'')).join(' / ')+'</p>').join('')+'</details><div class="grid"><button onclick="openSession(\''+s.id+'\')">'+(s.finished?'상세 기록':'운동 이어하기')+'</button><button onclick="startFromRecord(\''+s.id+'\')">같은 구성으로 시작</button></div></article>'}).join('')||'<div class="empty">아직 완료한 운동이 없습니다. 프로그램에서 운동을 시작해 보세요.</div>';enhanceReadability()};
 const journalAnalyticsBase=renderAnalytics;renderAnalytics=function(){journalAnalyticsBase();const s=analysisState(),anchor=$('analysisDate').value||date(),buckets=graphBuckets(s,focusExercise,anchor,analyticsPeriod),info=chartKinds[analyticsMetric].find(x=>x[0]===chartDetail),rm=analyticsMetric==='rm'?rmSeries(s,focusExercise,chartDetail):[];let last=null;for(const b of buckets){const stat=focusStats(s,focusExercise,b.start,b.end),rs=rm.filter(x=>x.date>=b.start&&x.date<b.end),value=analyticsMetric==='rm'?(rs.length?Math.max(...rs.map(x=>x.value)):null):stat[chartDetail];if(value!==null)last={value,date:b.start}}$('chartMetricValue').innerHTML='<strong>'+(last?numberText(last.value):'—')+'</strong><span>'+(info?.[2]||'')+' · 마지막 구간</span>'};
 
@@ -412,6 +438,7 @@ renderBuilder = function () {
 };
 
 const restTimerKey = 'refit-v5-timer';
+const restVibration = [260, 100, 260, 280, 260, 100, 260, 280, 260, 100, 260];
 let restTimer = null;
 try {
   const stored = JSON.parse(localStorage.getItem(restTimerKey));
@@ -423,8 +450,8 @@ function persistRest() {
     else localStorage.removeItem(restTimerKey);
   } catch { toast('휴식 타이머를 기기에 저장하지 못했습니다.'); }
 }
-function restDuration(session = current()) {
-  return state.restSeconds ?? session?.items[0]?.rest ?? 90;
+function restDuration() {
+  return state.restSeconds ?? 60;
 }
 function setRestDuration(input) {
   const seconds = Number(input.value);
@@ -457,20 +484,22 @@ function tickRest() {
     restTimer.end = 0;
     restTimer.remaining = 0;
     persistRest();
-    navigator.vibrate?.([180,90,180]);
     toast('휴식 종료');
-    if (typeof Notification !== 'undefined' && Notification.permission === 'granted' && navigator.serviceWorker) {
-      navigator.serviceWorker.getRegistration().then(reg => reg?.showNotification('RE:FIT · 휴식 종료',{body:'다음 세트를 시작할 시간입니다.',tag:'refit-rest',vibrate:[180,90,180]})).catch(()=>{});
-    }
+    if (document.hidden && typeof Notification !== 'undefined' && Notification.permission === 'granted' && navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        if (!reg) return navigator.vibrate?.(restVibration);
+        return reg.showNotification('RE:FIT · 휴식 종료',{body:'다음 세트를 시작할 시간입니다.',tag:'refit-rest',vibrate:restVibration});
+      }).catch(() => navigator.vibrate?.(restVibration));
+    } else navigator.vibrate?.(restVibration);
   }
   paintRest();
 }
-startTimer = function (index) {
+startTimer = function (index, setIndex = null) {
   const session = current();
   if (!session || session.finished) return;
-  const seconds = state.restSeconds ?? session.items[index]?.rest ?? restDuration(session);
+  const seconds = restDuration();
   if (!seconds) { resetTimer(); return; }
-  restTimer = {id:session.id,end:Date.now()+seconds*1000,remaining:seconds*1000};
+  restTimer = {id:session.id,index,setIndex,end:Date.now()+seconds*1000,remaining:seconds*1000};
   persistRest();
   paintRest();
 };
@@ -489,13 +518,29 @@ resumeTimer = function () {
   paintRest();
 };
 resetTimer = function () { restTimer = null; persistRest(); paintRest(); };
+let restPlacement = null;
+function restartVisibleRest() {
+  const placement = restPlacement?.id === current()?.id ? restPlacement : null;
+  startTimer(placement?.index ?? 0, placement?.setIndex ?? null);
+}
 const originalWorkout = renderWorkout;
 renderWorkout = function () {
+  // Move the live controls out of the set list before rebuilding it.
+  const panel = $('restPanel');
+  $('restDock').appendChild?.(panel);
   originalWorkout();
   const session = current();
   if (!session) return;
+  const placement = restTimer || restPlacement;
+  const slot = !session.finished && placement?.id === session.id &&
+    Number.isInteger(placement.index) && Number.isInteger(placement.setIndex)
+    ? $('rest-slot-'+placement.index+'-'+placement.setIndex) : null;
+  if (slot) {
+    slot.appendChild?.(panel);
+    restPlacement = {id:session.id,index:placement.index,setIndex:placement.setIndex};
+  }
   $('workoutTitle').textContent = sessionLabel(session)+' 운동';
-  $('restSeconds').value = restDuration(session);
+  $('restSeconds').value = restDuration();
   $('restSeconds').disabled = session.finished;
   $('restStart').disabled = session.finished;
   paintRest();
@@ -521,8 +566,12 @@ toggleSet = function (i,j) {
   const set = session.items[i].sets[j];
   set.done = !set.done;
   save();
-  if (set.done) startTimer(i);
+  if (set.done) {
+    restPlacement = {id:session.id,index:i,setIndex:j};
+    startTimer(i,j);
+  }
   renderWorkout();
+  if (set.done && restTimer?.end) $('restPanel').scrollIntoView?.({block:'nearest',behavior:'instant'});
 };
 finishWorkout = function () {
   const session = current();
@@ -556,6 +605,248 @@ setInterval(tickRest, 500);
 document.addEventListener?.('visibilitychange', tickRest);
 window.addEventListener('pageshow', tickRest);
 tickRest();
+
+Object.assign(areas, {
+  이두: ['바벨 컬','덤벨 컬','해머 컬'],
+  삼두: ['케이블 푸시다운','오버헤드 트라이셉스 익스텐션']
+});
+let editingRoutineId = null;
+let catalogArea = '가슴';
+
+function routines() {
+  if (!Array.isArray(state.routines)) {
+    state.routines = Object.entries(state.programs).filter(([,items]) => items.length).map(([area,items]) => ({
+      id:'legacy-'+Object.keys(areas).indexOf(area),
+      name:area+' 운동',
+      legacyArea:area,
+      items:items.map((item,index) => ({...item,area,id:'item-'+index}))
+    }));
+    for (const session of state.sessions) {
+      if (session.finished || session.routineId || areasOf(session).length !== 1) continue;
+      const routine = state.routines.find(r => r.legacyArea === session.area);
+      if (!routine) continue;
+      session.routineId = routine.id;
+      session.routineName = routine.name;
+      for (const item of session.items) {
+        const plan = routine.items.find(x => x.name === item.name);
+        if (plan) item.routineItemId = plan.id;
+      }
+    }
+  }
+  return state.routines;
+}
+function editingRoutine() {
+  const entries = routines();
+  return entries.find(r => r.id === editingRoutineId) || entries[0];
+}
+function createRoutine(input) {
+  const name = input.value.trim();
+  if (!name || name.length > 60) return toast('프로그램 이름을 입력하세요.');
+  const routine = {id:uid(),name,items:[]};
+  routines().push(routine);
+  editingRoutineId = routine.id;
+  input.value = '';
+  save();
+  renderBuilder();
+}
+function openRoutine(id) {
+  editingRoutineId = id;
+  go('builder');
+}
+function renameRoutine(input) {
+  const routine = editingRoutine();
+  const name = input.value.trim();
+  if (!routine) return;
+  if (!name || name.length > 60) { input.value = routine.name; return; }
+  routine.name = name;
+  save();
+  renderBuilder();
+}
+function deleteRoutine() {
+  const routine = editingRoutine();
+  if (!routine || !confirm(routine.name+' 프로그램을 삭제할까요? 운동 기록은 남습니다.')) return;
+  state.routines = routines().filter(r => r.id !== routine.id);
+  editingRoutineId = null;
+  save();
+  renderBuilder();
+}
+function libraryNames() {
+  const saved = routines().flatMap(r => r.items.filter(item => item.area === catalogArea).map(item => item.name));
+  const legacy = (state.programs[catalogArea] || []).map(item => item.name);
+  return [...new Set([...list(catalogArea), ...legacy, ...saved])];
+}
+function rememberExercise(input) {
+  const name = input.value.trim();
+  if (!name || name.length > 100 || ['__proto__','constructor','prototype'].includes(name)) return toast('운동 이름을 확인하세요.');
+  if (!list(catalogArea).includes(name)) (state.custom[catalogArea] ??= []).push(name);
+  input.value = '';
+  if (save()) toast(catalogArea+' 종목 목록에 저장했습니다.');
+  renderBuilder();
+}
+function addLibraryExercise(index) {
+  const routine = editingRoutine();
+  const name = libraryNames()[index];
+  if (!routine || !name) return toast('먼저 프로그램을 만드세요.');
+  const g = goal();
+  routine.items.push({id:uid(),area:catalogArea,name,weight:recommendedWeight(name),reps:g.defaultReps,sets:g.defaultSets,rest:60});
+  save();
+  renderBuilder();
+}
+function reorderRoutine(index, offset) {
+  const items = editingRoutine()?.items;
+  const other = index + offset;
+  if (!items || !items[index] || !items[other]) return;
+  [items[index],items[other]] = [items[other],items[index]];
+  save();
+  renderBuilder();
+}
+function removeRoutineExercise(index) {
+  editingRoutine()?.items.splice(index,1);
+  save();
+  renderBuilder();
+}
+function editRoutineExercise(index, field, input) {
+  const routine = editingRoutine();
+  const item = routine?.items[index];
+  if (!item) return;
+  const isPercent = field === 'percent';
+  const raw = Number(input.value);
+  const key = isPercent ? 'weight' : field;
+  const value = isPercent ? Math.round(raw * rmValue(item.name)) / 100 : raw;
+  const max = {weight:1000,reps:100,sets:30}[key];
+  if (!input.value || !Number.isFinite(value) || !max || value > max || value < (key === 'weight' ? 0 : 1) || (key !== 'weight' && !Number.isInteger(value)) || (isPercent && raw > 200)) {
+    renderBuilder();
+    return toast('입력 범위를 확인하세요.');
+  }
+  if (item[key] !== value) {
+    item[key] = value;
+    for (const session of state.sessions.filter(s => !s.finished && s.routineId === routine.id)) {
+      const active = session.items.find(x => x.routineItemId === item.id);
+      if (!active) continue;
+      if (key === 'sets') {
+        const lastDone = active.sets.findLastIndex(s => s.done) + 1;
+        active.sets.length = Math.min(active.sets.length, Math.max(lastDone,value));
+        while (active.sets.length < value) active.sets.push({weight:active.weight,reps:active.reps,done:false});
+      } else {
+        const original = key === 'weight' ? 'startingWeight' : 'startingReps';
+        active[original] ??= active[key];
+        active[key] = value;
+        for (const set of active.sets) if (!set.done) set[key] = value;
+      }
+    }
+    save();
+  }
+  renderBuilder();
+}
+function newRoutineSession(routine) {
+  if (!routine?.items.length) return toast('프로그램에 운동을 추가하세요.');
+  const sessions = allSessions();
+  const active = sessions.find(s => !s.finished && s.routineId === routine.id);
+  if (active && confirm('진행 중인 운동을 이어갈까요? 취소하면 새 운동을 시작합니다.')) return openSession(active.id);
+  const past = sessions.filter(s => s.finished && (s.routineId === routine.id ||
+    (!s.routineId && routine.legacyArea && areasOf(s).length === 1 && s.area === routine.legacyArea)));
+  const items = routine.items.map(plan => {
+    const prior = past.map(s => s.items.find(x => x.routineItemId === plan.id ||
+      (!x.routineItemId && x.name === plan.name && (x.area || s.area) === plan.area))).find(Boolean);
+    const useWeight = (prior?.startingWeight ?? prior?.weight) === plan.weight;
+    const useReps = (prior?.startingReps ?? prior?.reps) === plan.reps;
+    const sets = Array.from({length:plan.sets}, (_, index) => {
+      const old = prior?.sets[index];
+      return {weight:useWeight ? old?.weight ?? plan.weight : plan.weight,
+        reps:useReps ? old?.reps ?? plan.reps : plan.reps,done:false,type:old?.type || 'work',rir:old?.rir ?? null};
+    });
+    return {routineItemId:plan.id,name:plan.name,area:plan.area,rm:rmValue(plan.name),
+      weight:plan.weight,reps:plan.reps,rest:restDuration(),sets};
+  });
+  const areasInOrder = [...new Set(items.map(item => item.area))];
+  const session = {id:uid(),created:Date.now(),date:date(),area:areasInOrder[0],areas:areasInOrder,
+    routineId:routine.id,routineName:routine.name,goal:state.goal,finished:false,items};
+  state.sessions.push(session);
+  state.activeId = session.id;
+  save();
+  go('workout');
+}
+function startSavedRoutine(id) { newRoutineSession(routines().find(r => r.id === id)); }
+const legacySessionLabel = sessionLabel;
+sessionLabel = function (session) { return session.routineName || legacySessionLabel(session); };
+const legacyStartFromRecord = startFromRecord;
+startFromRecord = function (id) {
+  const session = state.sessions.find(s => s.id === id);
+  if (!session?.routineId) return legacyStartFromRecord(id);
+  const routine = routines().find(r => r.id === session.routineId);
+  if (routine) return newRoutineSession(routine);
+  newRoutineSession({id:session.routineId,name:sessionLabel(session),items:session.items.map((item,index) => ({
+    id:item.routineItemId || 'item-'+index,area:item.area || session.area,name:item.name,
+    weight:item.weight,reps:item.reps,sets:item.sets.length
+  }))});
+};
+renderBuilder = function () {
+  const routine = editingRoutine();
+  editingRoutineId = routine?.id ?? null;
+  $('routineChoices').innerHTML = routines().map(r =>
+    `<button class="${r===routine?'active':''}" onclick="openRoutine('${r.id}')">${clean(r.name)}</button>`).join('');
+  $('routineEditor').hidden = !routine;
+  $('libraryArea').innerHTML = Object.keys(areas).map(a => `<option${a===catalogArea?' selected':''}>${a}</option>`).join('');
+  $('libraryExercises').innerHTML = libraryNames().map((name,index) =>
+    `<div class="row"><div><strong>${clean(name)}</strong><br><small>${rmValue(name)?guide(name):'중량 직접 설정'}</small></div><button class="compact" onclick="addLibraryExercise(${index})"${routine?'':' disabled'}>+ 담기</button></div>`).join('');
+  if (routine) {
+    $('routineName').value = routine.name;
+    $('routinePlan').innerHTML = routine.items.map((item,index) => {
+      const rm = rmValue(item.name);
+      const fields = [['weight','중량 (kg)',item.weight,0,1000,'any'],['reps','반복',item.reps,1,100,1],['sets','세트',item.sets,1,30,1]];
+      if (rm) fields.push(['percent','% 1RM',Number((item.weight/rm*100).toFixed(2)),0,200,'any']);
+      return `<article class="routine-item"><div class="row"><div><small>${index+1}. ${clean(item.area)}</small><h3>${clean(item.name)}</h3></div>
+        <div class="routine-order"><button class="compact" aria-label="위로 이동" onclick="reorderRoutine(${index},-1)"${index?'':' disabled'}>↑</button>
+        <button class="compact" aria-label="아래로 이동" onclick="reorderRoutine(${index},1)"${index===routine.items.length-1?' disabled':''}>↓</button>
+        <button class="compact" onclick="removeRoutineExercise(${index})">빼기</button></div></div>
+        <div class="grid">${fields.map(([field,label,value,min,max,step])=>`<div><label>${label}</label><input type="number" value="${value}" min="${min}" max="${max}" step="${step}" onchange="editRoutineExercise(${index},'${field}',this)"></div>`).join('')}</div></article>`;
+    }).join('') || '<p class="note">부위별 운동 목록에서 운동을 담으세요.</p>';
+    $('startRoutine').disabled = !routine.items.length;
+  }
+  enhanceReadability();
+};
+const v57Home = renderHome;
+renderHome = function () {
+  v57Home();
+  const active = allSessions().find(s => !s.finished);
+  const entries = routines();
+  const lastUsedId = allSessions().find(s => s.routineId)?.routineId;
+  const first = entries.find(r => r.id === lastUsedId && r.items.length) || entries.find(r => r.items.length);
+  if (!active) {
+    $('homeTraining').innerHTML = '<div class="home-heading"><h2>오늘의 운동</h2></div>'+ (first
+      ? `<div class="training-ticket"><span class="ticket-label">내 프로그램</span><h3>${clean(first.name)}</h3><p>${clean(first.items.map(i=>i.name).join(' · '))}</p><button class="primary" onclick="startSavedRoutine('${first.id}')">운동 시작</button></div>`
+      : '<div class="training-ticket"><h3>나의 프로그램</h3><p>원하는 부위와 종목을 하나의 프로그램에 담으세요.</p><button class="primary" onclick="go(\'builder\')">프로그램 만들기</button></div>');
+  }
+  $('homePrograms').innerHTML = entries.map(r => `<div class="program-line"><div class="area-symbol">운동</div><div><strong>${clean(r.name)}</strong><small>${r.items.length}종목 · ${clean([...new Set(r.items.map(i=>i.area))].join(' · '))}</small></div><div class="program-actions"><button onclick="openRoutine('${r.id}')">편집</button><button class="primary" onclick="startSavedRoutine('${r.id}')" ${r.items.length?'':'disabled'}>시작</button></div></div>`).join('') || '<div class="empty">아직 프로그램이 없습니다.</div>';
+};
+const v57Validate = validateBackup;
+validateBackup = function (input) {
+  const data = v57Validate(input);
+  const idOK = id => typeof id === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(id);
+  const textOK = (value,max) => typeof value === 'string' && value.trim().length > 0 && value.length <= max;
+  const numberOK = (value,min,max,int=false) => Number.isFinite(value) && value>=min && value<=max && (!int||Number.isInteger(value));
+  const fail = () => { throw Error('사용자 프로그램의 이름, 종목 또는 순서 정보가 올바르지 않습니다.'); };
+  if (data.routines !== undefined) {
+    if (!Array.isArray(data.routines)) fail();
+    const ids = new Set();
+    for (const routine of data.routines) {
+      if (!routine || !idOK(routine.id) || ids.has(routine.id) || !textOK(routine.name,60) || !Array.isArray(routine.items) ||
+          (routine.legacyArea !== undefined && !Object.hasOwn(areas,routine.legacyArea))) fail();
+      ids.add(routine.id);
+      const itemIds = new Set();
+      for (const item of routine.items) {
+        if (!item || !idOK(item.id) || itemIds.has(item.id) || !Object.hasOwn(areas,item.area) || !textOK(item.name,300) ||
+          !numberOK(item.weight,0,1000) || !numberOK(item.reps,1,100,true) || !numberOK(item.sets,1,30,true)) fail();
+        itemIds.add(item.id);
+      }
+    }
+  }
+  for (const session of data.sessions) {
+    if (session.routineId !== undefined && (!idOK(session.routineId) || !textOK(session.routineName,60))) fail();
+    for (const item of session.items) if (item.routineItemId !== undefined && !idOK(item.routineItemId)) fail();
+  }
+  return data;
+};
 
 go(state.goal?'home':'goal');
 </script></body></html>

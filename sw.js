@@ -1,6 +1,6 @@
 const ROOT=new URL('./',self.location.href).href;
 const PREFIX='refit-shell-'+encodeURIComponent(ROOT)+'-';
-const CACHE=PREFIX+'v5.7.0';
+const CACHE=PREFIX+'v5.8.1';
 const FILES=['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/maskable-512.png'].map(p=>new URL(p,ROOT).href);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));
 // Wait until existing app windows close, so one workout never mixes application versions.
