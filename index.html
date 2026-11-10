@@ -359,7 +359,8 @@ html[data-large=true] #builder > .card > h3 { font-size:21px; }
 #workout #restPanel .rest-controls button{min-height:34px;padding:3px 5px;font-size:11px;border-radius:7px}
 #workout #restPanel .rest-inline{font-size:11px}
 #workout #restPanel .rest-inline #restSeconds{min-height:34px;width:3.5em;padding:3px;font-size:13px;border-radius:7px}
-</style><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png"><meta name="mobile-web-app-capable" content="yes"></head><body><a class="skip-link" href="#appMain">본문으로 이동</a><main id="appMain" tabindex="-1"><header><div><h1>RE:FIT <small>v5.9.19</small></h1><small>1RM 기반 운동 프로그램</small></div><button class="compact" onclick="go('home')">⌂ 대시보드</button></header><div class="display-control"><span class="display-label">화면 설정</span><button id="fontToggle" onclick="toggleLargeText()" aria-pressed="false">가 큰 글씨 켜기</button></div>
+#builder .routine-item{scroll-margin-block-start:16px}
+</style><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png"><meta name="mobile-web-app-capable" content="yes"></head><body><a class="skip-link" href="#appMain">본문으로 이동</a><main id="appMain" tabindex="-1"><header><div><h1>RE:FIT <small>v5.9.20</small></h1><small>1RM 기반 운동 프로그램</small></div><button class="compact" onclick="go('home')">⌂ 대시보드</button></header><div class="display-control"><span class="display-label">화면 설정</span><button id="fontToggle" onclick="toggleLargeText()" aria-pressed="false">가 큰 글씨 켜기</button></div>
 <div id="saveBar"><small id="saveStatus" role="status">운동 변경 사항은 자동 저장됩니다.</small> <button id="retrySave" class="compact" onclick="save()" hidden>다시 저장</button></div><section id="home" class="page"><section class="home-section home-quote" aria-labelledby="homeQuoteTitle">
   <div class="section-toolbar"><h2 id="homeQuoteTitle">오늘의 명언</h2><button class="quote-next" onclick="nextQuote()" aria-label="다른 명언 보기">↻</button></div>
   <div class="motivation"><p id="motivationLine"></p></div>
@@ -1090,9 +1091,14 @@ function addLibraryExercise(index) {
   if (!routine || !name) return toast('먼저 프로그램을 만드세요.');
   if (routine.items.some(item => item.area === catalogArea && item.name === name)) return;
   const g = goal();
-  routine.items.push({id:uid(),area:catalogArea,name,weight:programWeightOptions(name)[0] ?? 0,reps:g.defaultReps,sets:g.defaultSets,rest:60});
+  const item = {id:uid(),area:catalogArea,name,weight:programWeightOptions(name)[0] ?? 0,reps:g.defaultReps,sets:g.defaultSets,rest:60};
+  routine.items.push(item);
   save();
   renderBuilder();
+  const added = $('routine-item-'+item.id);
+  added?.focus?.({preventScroll:true});
+  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  added?.scrollIntoView?.({block:'start',behavior:reduceMotion?'instant':'smooth'});
 }
 function reorderRoutine(index, offset) {
   const items = editingRoutine()?.items;
@@ -1214,7 +1220,7 @@ renderBuilder = function () {
       const reading = rm ? programSliderReading(item.name,low+Math.round((item.weight/rm*100-low)/5)*5,step) : null;
       const ticks = Array.from({length:(high-low)/5+1},(_,i)=>low+i*5);
       const fields = [['weight','중량 (kg)',item.weight,0,1000,'any'],['reps','반복',item.reps,1,100,1],['sets','세트',item.sets,1,30,1]];
-      return `<article class="routine-item"><div class="routine-item-head"><div class="routine-item-title"><h3>${clean(item.name)}</h3></div>
+      return `<article class="routine-item" id="routine-item-${clean(item.id)}" tabindex="-1" aria-label="${clean(item.name)}"><div class="routine-item-head"><div class="routine-item-title"><h3>${clean(item.name)}</h3></div>
         <div class="routine-order"><button class="compact" aria-label="위로 이동" onclick="reorderRoutine(${index},-1)"${index?'':' disabled'}>↑</button>
         <button class="compact" aria-label="아래로 이동" onclick="reorderRoutine(${index},1)"${index===routine.items.length-1?' disabled':''}>↓</button>
         <button class="compact" onclick="removeRoutineExercise(${index})">빼기</button></div></div>
